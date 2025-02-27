@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.kotlin.kapt)
+    alias(libs.plugins.hilt.android)
     id("androidx.navigation.safeargs.kotlin") // Safe Args Plugin
 }
 
@@ -28,6 +29,10 @@ android {
                 "proguard-rules.pro"
             )
         }
+    }
+
+    kapt {
+        correctErrorTypes = true
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
@@ -61,7 +66,6 @@ dependencies {
     implementation(libs.androidx.navigation.compose)
     implementation(libs.hilt.android)
     kapt(libs.hilt.compiler)
-
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
