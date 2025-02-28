@@ -1,9 +1,9 @@
 package com.cart.ecart.data.api
 
-import com.cart.ecart.domain.model.User
+import com.cart.ecart.domain.model.Cart
 import retrofit2.http.GET
 
 interface ApiService {
-    @GET("users")
-    suspend fun getUsers(): List<User>
+    @GET("cart")
+    suspend fun getUsers(): List<Cart>
 }
