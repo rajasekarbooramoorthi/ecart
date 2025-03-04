@@ -39,7 +39,7 @@ class MainActivity : ComponentActivity() {
                 LaunchedEffect(Unit) {
                     lifecycleScope.launch {
                         viewModel.greetingText.collectLatest { newText ->
-                            text = newText.toString()
+                            text = newText
                         }
                     }
                 }

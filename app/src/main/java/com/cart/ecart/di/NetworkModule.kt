@@ -49,15 +49,4 @@ object NetworkModule {
         return retrofit.create(ApiService::class.java)
     }
 
-    @Provides
-    @Singleton
-    fun provideUserRepository(apiService: ApiService): UserRepository {
-        return UserRepository(apiService)
-    }
-
-    @Provides
-    @Singleton
-    fun provideGetUsersUseCase(repository: UserRepository): GetUsersUseCase {
-        return GetUsersUseCase(repository)
-    }
 }

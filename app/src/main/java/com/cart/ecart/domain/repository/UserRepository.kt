@@ -6,6 +6,8 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import javax.inject.Inject
 import com.cart.ecart.domain.sate.ApiState
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.flowOn
 import retrofit2.HttpException
 import java.io.IOException
 
@@ -15,7 +17,6 @@ class UserRepository @Inject constructor(private val apiService: ApiService) {
         emit(ApiState.Loading()) // Emit loading state
         try {
             val response = apiService.getUsers()
-
             emit(ApiState.Success(response)) // Emit success state
         } catch (e: HttpException) { // Handles 404 and other HTTP errors
             val errorMessage = when (e.code()) {
@@ -28,7 +29,7 @@ class UserRepository @Inject constructor(private val apiService: ApiService) {
         } catch (e: Exception) { // Handles any other exceptions
             emit(ApiState.Error("Unexpected error: ${e.localizedMessage}"))
         }
-    }
+    }.flowOn(Dispatchers.IO)
 
 
 }

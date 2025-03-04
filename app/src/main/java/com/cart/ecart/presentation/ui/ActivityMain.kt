@@ -7,8 +7,8 @@ import androidx.activity.viewModels
 import androidx.lifecycle.lifecycleScope
 import com.cart.ecart.presentation.UserViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.async
 import kotlinx.coroutines.flow.collectLatest
-import kotlinx.coroutines.launch
 
 @AndroidEntryPoint
 class ActivityMain : ComponentActivity() {
@@ -17,12 +17,11 @@ class ActivityMain : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         viewModel.fetchUsers()
-        /*      viewModel.users.observe(this) { users ->
+        /*viewModel.users.observe(this) { users ->
                   users.forEach { Log.d("MainActivity", "User: ${it.name}") }
               }*/
-        lifecycleScope.launch {
+        val def = lifecycleScope.async {
             viewModel.users.collectLatest { users ->
                 users.forEach { user ->
                     Log.d("MainActivity", "User: ${user.name}")
